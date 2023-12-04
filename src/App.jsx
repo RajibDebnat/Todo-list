@@ -7,6 +7,13 @@ function App() {
     clicked: false,
     projects: [],
   });
+  function handleSelectProject(id){
+    setCreateProject((prevData) => {
+      return {
+        ...prevData,
+        clicked: id,
+      };
+      })}
   function handleCreateProject() {
     setCreateProject((prevData) => {
       return {
@@ -23,33 +30,41 @@ function App() {
     setCreateProject((prevValue) => {
       return {
         ...prevValue,
-        clicked:false,
-        
+        clicked: false,
+
         projects: [...prevValue.projects, inputValue],
       };
     });
-
-
   }
 
-  function addCancleHandler(){
+  function addCancleHandler() {
     setCreateProject((prevData) => {
       return {
         ...prevData,
-        clicked: false
+        clicked: false,
       };
     });
   }
-
+  let content;
+if(isCreateProject.clicked){
+content=<NewProject
+          projectHandler={handleAddProject}
+          cancleHandler={addCancleHandler}
+        />
+}else if()
   return (
     <main className="h-screen my-8 flex gap-8">
-      <SideBar projects={isCreateProject.projects} isClicked={handleCreateProject} />
+      <SideBar
+        projects={isCreateProject.projects}
+        isClicked={handleCreateProject}
+        onSelectProject={handleSelectProject}
+      />
       {isCreateProject.clicked ? (
-        <NewProject projectHandler={handleAddProject} cancleHandler={addCancleHandler} />
+        
       ) : (
         <NoProjectSelected isClicked={handleCreateProject} />
       )}
-    </main> 
+    </main>
   );
 }
 
