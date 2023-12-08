@@ -25,7 +25,7 @@ return;
     projectHandler({
       title: enteredTitle,
       description: enteredDescription,
-      enteredDueDate: enteredDueDate,
+      dueDate: enteredDueDate,
     });
     title.current.value = "";
     description.current.value = "";
@@ -67,6 +67,7 @@ return;
             <input type="number"/>
         </p> */}
       </div>
+    
     </div>
     </>
   );

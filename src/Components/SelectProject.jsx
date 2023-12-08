@@ -1,23 +1,36 @@
-export default function SelectProject({ project }) {
-    const formatedDate = new Date(project.dueDate).toLocaleDateString('en-Us',{
+import Task from "./Task";
+
+export default function SelectProject({ project ,onDelete}) {
+    const formatedDate = new Date(project.dueDate).toLocaleDateString('en-Us', {
         year:"numeric",
         month:'short',
         day:'numeric'
     })
+    // console.log(formatedDate)
+
+  //   const formattedDate = new Date(project.dueDate).toLocaleDateString('en-US', {
+  //     year: "numeric",
+  //     month: 'short',
+  //     day: 'numeric'
+  // });
+  // console.log(formattedDate);
+
+
   return (
-    <div className="p-4 border border-gray-300 rounded-md">
+    <div className="p-4 border border-gray-300 rounded-md w-full ">
     <header className="flex justify-between items-center mb-4">
-      <div className="flex items-center">
+      <div className="flex items-cente space-x-12">
         <h2 className="text-xl font-bold mr-2">{project.title}</h2>
         <p>
-          <button className="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md transition duration-300 ease-in-out">
+          <button onClick={()=>onDelete()}  className="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md transition duration-300 ease-in-out">
             Delete
           </button>
         </p>
       </div>
       <p className="text-gray-500">{formatedDate}</p>
     </header>
-    <p>{project.description}</p>
+    <p className=" whitespace-pre-wrap text-lg ">{project.description}</p>
+    <Task/>
   </div>
   );
 }

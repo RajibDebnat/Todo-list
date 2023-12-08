@@ -1,7 +1,7 @@
 import Button from "./Button";
 const skeliton =  <i  ><button className=" bg-stone-800 text-stone-400 px-4 py-4 rounded-lg w-full"></button></i>;
 
-export default function SideBar({isClicked,projects,onSelectProject,selectedProjectId}) {
+export default function SideBar({isClicked,projects,onSelectProject,selectedProjectId,onDelete}) {
   const projectShadow = projects.slice();
   // function handleContent(e){
   //   console.log(projects);
@@ -19,13 +19,13 @@ export default function SideBar({isClicked,projects,onSelectProject,selectedProj
      
      { projects.map((project)=>{
       // here i am using this method to style the selected button 
-      let cssClass = "text-left bg-stone-800  px-4 py-2 rounded-lg hover:bg-stone-600 w-full";
+      let cssClass = "text-left bg-stone-800  px-4 py-2 rounded-lg hover:bg-stone-600 w-full cursor-pointer";
       if(project.id === selectedProjectId){
-        cssClass+=" bg-stone-800 text-stone-200"
+        cssClass+=" bg-stone-600 text-stone-200"
       }else{
         cssClass+=' text-stone-400 ';
       }
-       return<i  key={project.id} ><button className={cssClass} onClick={onSelectProject} >{project.title}</button></i>
+       return<i  key={project.id} ><button className={cssClass} onClick={()=>onSelectProject(project.id)} >{project.title}</button></i>
       })}
       </ul>
     </aside>
