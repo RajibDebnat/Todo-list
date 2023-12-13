@@ -1,6 +1,6 @@
 import Task from "./Task";
 
-export default function SelectProject({ project ,onDelete}) {
+export default function SelectProject({ project ,onDelete,onAddTask,taskData,onDeleteTask}) {
     const formatedDate = new Date(project.dueDate).toLocaleDateString('en-Us', {
         year:"numeric",
         month:'short',
@@ -17,7 +17,7 @@ export default function SelectProject({ project ,onDelete}) {
 
 
   return (
-    <div className="p-4 border border-gray-300 rounded-md w-full ">
+    <div className="p-4 border border-gray-300 rounded-md w-2/4  bg-violet-100">
     <header className="flex justify-between items-center mb-4">
       <div className="flex items-cente space-x-12">
         <h2 className="text-xl font-bold mr-2">{project.title}</h2>
@@ -30,7 +30,7 @@ export default function SelectProject({ project ,onDelete}) {
       <p className="text-gray-500">{formatedDate}</p>
     </header>
     <p className=" whitespace-pre-wrap text-lg ">{project.description}</p>
-    <Task/>
+    <Task onDelete={onDeleteTask} taskData={taskData} onAddTask={onAddTask} />
   </div>
-  );
+  );  
 }

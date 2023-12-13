@@ -7,6 +7,7 @@ function App() {
   const [isCreateProject, setCreateProject] = useState({
     clicked: false,
     projects: [],
+    task: [],
   });
   function handleSelectProject(id) {
     setCreateProject((prevData) => {
@@ -47,12 +48,53 @@ function App() {
       };
     });
   }
+
+  function handleAddTask(text) {
+    setCreateProject((prevValue) => {
+      const taskId = Math.random();
+      const newTask = {
+        text: text,
+        // taskId: taskId ,
+        projectId: prevValue.clicked,
+        id: taskId,
+      };
+      // console.log(newTask);
+      return {
+        ...prevValue,
+
+        task: [newTask, ...prevValue.task],
+      };
+    });
+  }
+  // console.log(isCreateProject)
+  function handleDeleteTask(taskId) {
+    setCreateProject((prevValue) => {
+      // const result = prevValue.projects.filter(
+      //   (project) => project.id !== project.clicked
+      // );
+      // console.log(result);
+      return {
+        ...prevValue,
+
+        task: prevValue.task.filter((task) => task.id !== taskId),
+      };
+    });
+  }
+
   const selectedProject = isCreateProject.projects.find(
     (project) => project.id === isCreateProject.clicked
   );
   let id = selectedProject?.id;
   // console.log(selectedProject)
-  let content = <SelectProject  onDelete={handleDelete} project={selectedProject} />;
+  let content = (
+    <SelectProject
+      onAddTask={handleAddTask}
+      onDeleteTask={handleDeleteTask}
+      onDelete={handleDelete}
+      project={selectedProject}
+      taskData={isCreateProject}
+    />
+  );
   if (isCreateProject.clicked === true) {
     content = (
       <NewProject
@@ -66,8 +108,10 @@ function App() {
 
   function handleDelete() {
     setCreateProject((prevValue) => {
-      const result = prevValue.projects.filter(project=> project.id !== project.clicked);
-      console.log(result)
+      // const result = prevValue.projects.filter(
+      //   (project) => project.id !== project.clicked
+      // );
+      // console.log(result);
       return {
         ...prevValue,
         clicked: false,
@@ -75,23 +119,18 @@ function App() {
         projects: prevValue.projects.filter(
           (project) => project.id !== prevValue.clicked
         ),
-
-
-        
       };
     });
-  
   }
 
   // console.log(selectedProject.id)
   return (
-    <main className="h-screen my-8 flex gap-8">
+    <main className="h-screen my-8 flex gap-8 ">
       <SideBar
         projects={isCreateProject.projects}
         isClicked={handleCreateProject}
         onSelectProject={handleSelectProject}
         selectedProjectId={id}
-       
       />
       {content}
     </main>
